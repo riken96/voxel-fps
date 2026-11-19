@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voxel FPS (.IO Style) - Fast Arena Shooter</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div id="game-container"></div>
+
+    <!-- Start / Click to play overlay -->
+    <div id="instructions-overlay">
+      <div class="game-title">VOXEL STRIKE</div>
+      <div class="game-subtitle">3D Fast-Paced Voxel Arena FPS</div>
+
+      <!-- Player Callsign & Actions -->
+      <div style="display:flex; gap:10px; margin-bottom:20px; align-items:center;">
+        <input id="pilot-name-input" type="text" placeholder="Enter Callsign..." maxlength="15" style="background:rgba(8,14,24,0.9); border:1px solid #00ffcc; border-radius:6px; color:#fff; font-family:'JetBrains Mono', monospace; font-size:14px; font-weight:bold; padding:10px 16px; outline:none; text-align:center; width:220px;" />
+        <button id="main-settings-btn" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:6px; color:#fff; font-size:16px; padding:9px 14px; cursor:pointer;" title="Settings">⚙️</button>
+      </div>
+
+      <div class="click-prompt" id="deploy-btn">DEPLOY TO ARENA</div>
+
+      <div class="controls-grid">
+        <div class="control-item">
+          <span class="key-badge">W A S D</span>
+          <span>Move & Air-Strafe</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">SHIFT + C</span>
+          <span>High-Speed Slide & Slide-Hop</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">SPACE</span>
+          <span>Jump / Mantle Vault / Wall-Kick</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">L-CLICK</span>
+          <span>Fire Weapon / Break Block</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">R-CLICK</span>
+          <span>Aim Down Sights (ADS) / Place</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">1 - 4</span>
+          <span>Rifle / Sniper / Shotgun / Pistol</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">R</span>
+          <span>Reload Magazine</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">B</span>
+          <span>Toggle Combat / Build Mode</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">E</span>
+          <span>Creative Inventory & Hotbar (Build)</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">L</span>
+          <span>Loadout / Armory / Weapon Skins</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">1 - 9</span>
+          <span>Weapons (Combat) / Hotbar (Build)</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">ALT</span>
+          <span>Free / Lock Mouse Cursor</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">TAB</span>
+          <span>Hold Scoreboard</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">M</span>
+          <span>Lobbies / Matchmaking</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">O</span>
+          <span>Pilot Login / Profile</span>
+        </div>
+        <div class="control-item">
+          <span class="key-badge">P / F3</span>
+          <span>Toggle Debug Metrics</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- In-Game HUD -->
+    <div id="hud">
+      <div class="hud-panel health-stat">
+        <div>
+          <div class="health-label">HEALTH</div>
+          <div class="health-value">100</div>
+        </div>
+        <div class="health-bar-bg">
+          <div class="health-bar-fill"></div>
+        </div>
+      </div>
+
+      <div id="palette-bar">
+        <div class="palette-slot active" style="background-color: #37474f;" data-slot="1" title="Assault Rifle"><span>1-AR</span></div>
+        <div class="palette-slot" style="background-color: #263238;" data-slot="2" title="Sniper Rifle"><span>2-SNP</span></div>
+        <div class="palette-slot" style="background-color: #455a64;" data-slot="3" title="Shotgun"><span>3-SG</span></div>
+        <div class="palette-slot" style="background-color: #546e7a;" data-slot="4" title="Pistol"><span>4-PST</span></div>
+        <div class="palette-slot" style="background-color: #d1a640;" data-slot="5" title="Crate"><span>5</span></div>
+        <div class="palette-slot" style="background-color: #1ae6f2;" data-slot="6" title="Neon Cyan"><span>6</span></div>
+        <div class="palette-slot" style="background-color: #ff731a;" data-slot="7" title="Neon Orange"><span>7</span></div>
+        <div class="palette-slot" style="background-color: #b3d9f2;" data-slot="8" title="Glass"><span>8</span></div>
+        <div class="palette-slot" style="background-color: #59b847;" data-slot="9" title="Grass"><span>9</span></div>
+      </div>
+
+      <div class="hud-panel ammo-stat">
+        <div class="ammo-value">30 / 90</div>
+        <div class="ammo-label">PRIMARY AMMO</div>
+      </div>
+
+      <div id="hud-helper-bar" style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.55); font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; pointer-events: none; text-shadow: 0 1px 3px rgba(0,0,0,0.9); background: rgba(0,0,0,0.4); padding: 3px 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08);">
+        [ALT] Free Cursor &bull; [B] Builder Mode &bull; [E] Creative Inv &bull; [L] Loadout &bull; [F4] +Bot &bull; [K] Settings &bull; [M] Lobbies &bull; [TAB] Scores
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "voxel-fps",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "tsx server/src/server.ts",
+    "server": "tsx server/src/server.ts",
+    "test": "tsx shared/tests/physics.test.ts && tsx shared/tests/reconciliation.test.ts && tsx shared/tests/combat.test.ts && tsx shared/tests/editor.test.ts && tsx shared/tests/match.test.ts && tsx shared/tests/persistence.test.ts && tsx shared/tests/protox_mapmaker.test.ts && tsx shared/tests/bot.test.ts && tsx shared/tests/movement.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "three": "^0.174.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@types/three": "^0.174.0",
+    "@types/ws": "^8.5.14",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0"
+  }
+}

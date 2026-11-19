@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Production build artifacts
+dist/
+
+# SQLite Database & server runtime data
+data/
+*.db
+*.sqlite
+
+# Logs & temp files
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Test captures & scripts output
+scripts/*.png
+test_*.png
+
+# OS / Editor metadata
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
